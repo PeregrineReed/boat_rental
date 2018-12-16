@@ -41,4 +41,24 @@ class DockTest < Minitest::Test
     assert_equal boat_rentals, @dock.rental_log
   end
 
+  def test_it_can_charge_for_boat_rentals
+    @dock.rent(@kayak_1, @patrick)
+    @dock.rent(@sup_1, @eugene)
+    2.times { @kayak_1.add_hour }
+    5.times { @kayak_1.add_hour }
+
+    kayak_receipt = {
+       card_number: "4242424242424242",
+       amount: 40
+    }
+
+    sup_receipt = {
+     card_number: "1313131313131313",
+     amount: 45
+    }
+
+    assert_equal kayak_receipt, @dock.charge(@kayak_1)
+    assert_equal sup_receipt, @dock.charge(@sup_1)
+  end
+
 end

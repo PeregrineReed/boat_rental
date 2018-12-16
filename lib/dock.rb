@@ -11,11 +11,14 @@ class Dock
   end
 
   def rent(boat, renter)
-    if rental_log.keys.include?(boat)
-      rental_log[boat] += renter
-    else
-      rental_log[boat] = renter
-    end
+    rental_log[boat] = renter
+  end
+
+  def charge(boat)
+    {
+     card_number: @rental_log[boat].credit_card_number,
+     charge: boat.hours_rented * boat.price_per_hour
+    }
   end
 
 end
